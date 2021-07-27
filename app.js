@@ -12,7 +12,7 @@ const app = express()
 mongoose.connect('mongodb+srv://Smart:' + process.env.MY_PASSWORD + '@smartrecharge.usxo5.mongodb.net/SmartRecharge?retryWrites=true&w=majority?authSourse=yourDB&w=1',
 	{useUnifiedTopology : true, useNewUrlParser : true})
 
-app.use(bodyParser.urlencoded({extended  :false}))
+app.use(bodyParser.urlencoded({extended :true}))
 app.use(bodyParser.json())
 
 app.options("/*", function(req, res, next){
