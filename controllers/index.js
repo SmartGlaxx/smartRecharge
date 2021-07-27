@@ -30,9 +30,9 @@ const getUsers = (req, res, next)=>{
 }
 
 const getOneUser = (req, res)=>{
-	const {id} = req.params
+	const {userId} = req.params
 
-	User.findOne({_id : id})
+	User.findOne({_id : userId})
 	.exec()
 	.then(result =>{
 		res.status(200).json({
@@ -52,10 +52,10 @@ const getOneUser = (req, res)=>{
 const postUsers = (req, res)=>{
 	const user = new User({
 		_id : new mongoose.Types.ObjectId,
-		name : req,body,name,
-		email : req,body,email,
-		password : req,body,password,
-		phone : req,body,phone
+		name : req.body.name,
+		email : req.body.email,
+		password : req.body.password,
+		phone : req.body.phone
 	})
 
 	user.save()
@@ -73,27 +73,37 @@ const postUsers = (req, res)=>{
 	})
 }
 
-// const updateUser = (req, res)=>{
-// 	const {id} = req.params;
-// 		name : req.body.name
-// 		email : req.body.email
-// 		password : req.body.password
-// 		phone : req.body.phone
-
-// 	User.findOneAndUpdate({_id : id}, { name : name, email : email, password : password, phone : phone})
-// 	.then(result =>{
-// 		res.status(200).json({
-// 			message : "User updated",
-// 			data : result
-// 		})
-// 	}).catch((error)=>{
-//       	 res.status(400).json({
-// 	           message : "Error updating post."
-// 	       })
-// 	   })
-// }
+const updateUser = (req, res)=>{
+	const {userId} = req.params;
+	User.findByIdAndUpdate({_id : userId}, { name : req.body.name, email : req.body.email, password : req.body.password, phone : req.body.phone})
+	.then(result =>{
+		res.status(200).json({
+			message : "User updated",
+			data : result
+		})
+	}).catch((error)=>{
+      	 res.status(400).json({
+	           message : "Error updating post."
+	       })
+	   })
+}
 
 
+const deleteUser = (req, res)=>{
+	const {userId} = req.params;
+	User.deleteOne({_id : userId})
+	.exec()
+	.then(result =>{
+		res.status(200).json({
+			message : "User deleted",
+			data : result
+		})
+	}).catch((error)=>{
+      	 res.status(400).json({
+	           message : "Error deleting post."
+	       })
+	   })
+ }
 
-userControllers = {getUsers, getOneUser, postUsers} 
+userControllers = {getUsers, getOneUser, postUsers, updateUser, deleteUser} 
 module.exports = userControllers

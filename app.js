@@ -10,10 +10,11 @@ const app = express()
 //Heroku: mailsmartcodes@gmail.com; MongoDB Atlas: smartegbuchulem@gmail.com; Git : smartegbuchulem@gmail.com;
 // %23 stands for # 
 mongoose.connect('mongodb+srv://Smart:' + process.env.MY_PASSWORD + '@smartrecharge.usxo5.mongodb.net/SmartRecharge?retryWrites=true&w=majority?authSourse=yourDB&w=1',
-	{useUnifiedTopology : true, useNewUrlParser : true})
+	{useUnifiedTopology : true, useNewUrlParser : true, useFindAndModify : false})
 
-app.use(bodyParser.urlencoded({extended :true}))
+app.use(bodyParser.urlencoded({extended:true}))
 app.use(bodyParser.json())
+
 
 app.options("/*", function(req, res, next){
   res.header('Access-Control-Allow-Origin', '*');
