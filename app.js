@@ -26,7 +26,7 @@ app.all('*', function(req, res, next) {
   next();
 });
 
-app.use('/sign-up', signupRoute)
+app.use('/users', signupRoute)
 
 app.use((req, res, next)=>{
     const error = new Error('An error occured')
